@@ -873,17 +873,17 @@ code segment
         push ds
         
         mov  di,160*3+68
-		mov  bx, 0
-		mov  ax, show_mem
-		mov  ds, ax
+	mov  bx, 0
+	mov  ax, show_mem
+	mov  ds, ax
 		
-		_clean_color_loop:
-    		mov  es:[di], ' '
-		    mov  es:[di+1], 7
-		    add  di,160*2
-		    inc  bx
-		    cmp  bx, 4
-		    jb   _clean_color_loop
+	_clean_color_loop:
+	mov  es:[di], ' '
+	    mov  es:[di+1], 7
+	    add  di,160*2
+	    inc  bx
+	    cmp  bx, 4
+	    jb   _clean_color_loop
        
        pop ds
        pop ax
