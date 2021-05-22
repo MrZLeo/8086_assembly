@@ -82,38 +82,38 @@ code segment
                 call clean_screen
                 
                 mov  ax,0b800h
-        		mov  es,ax
-        		mov  di,160*2+64
-        		mov  ax,show_mem
-        		mov  ds,ax
-        		mov  si,0
-        		
-        		; draw the frame
-        		call draw
-        		
-        		; draw the number
-        		mov  di,160*3+68
-        		mov  bx, 0
-        		
-        		draw_the_unsorted_num:
-            		push ds
-            		mov  ax, data
-            		mov  ds, ax
-            		
-        		    mov  ax, arr[bx]
-        		    
-        		    pop  ds
-        		    mov  dx, 1b
-        		    call draw_num
-        		    
-        		    add  di,160*2
-        		    add  bx, 2
-        		    cmp  bx, 20
-        		    jb   draw_the_unsorted_num
-        		    
-        		mov di, 0
-        		mov ax, data
-        		mov ds, ax
+		mov  es,ax
+		mov  di,160*2+64
+		mov  ax,show_mem
+		mov  ds,ax
+		mov  si,0
+
+		; draw the frame
+		call draw
+
+		; draw the number
+		mov  di,160*3+68
+		mov  bx, 0
+
+		draw_the_unsorted_num:
+		push ds
+		mov  ax, data
+		mov  ds, ax
+
+	    	mov  ax, arr[bx]
+
+	    	pop  ds
+	    	mov  dx, 1b
+	    	call draw_num
+
+	    	add  di,160*2
+	    	add  bx, 2
+	        cmp  bx, 20
+		jb   draw_the_unsorted_num
+
+		mov di, 0
+		mov ax, data
+		mov ds, ax
         		          
                 call sort
                 
@@ -133,7 +133,8 @@ code segment
                 mov ah,02h
                 mov dh,9 
                 mov dl,9+12
-                int 10h       
+                int 10h
+		
                 ; show helpful sentence     
                 mov ax,processing
                 mov ds,ax
@@ -512,7 +513,7 @@ code segment
         in_loop_move:                   ; for (int j = i; j >= step && temp < arr[j-step]; ++j) 
             mov  ax, step
             shl  ax, 1
-            cmp  bx, ax                 ;/* shell sort */
+            cmp  bx, ax                 ; /* shell sort */
             jb   in_loop_move_end
        
             mov  di, bx
@@ -586,17 +587,17 @@ code segment
     
     
     delay proc
-		push cx
-		mov cx,03fh
-		run1:
-		push cx
-		mov cx,0fffh
-		run2:
-		loop run2
-		pop cx
-		loop run1
-		pop cx
-		ret
+	push cx
+	mov cx,03fh
+	run1:
+	push cx
+	mov cx,0fffh
+	run2:
+	loop run2
+	pop cx
+	loop run1
+	pop cx
+	ret
     delay endp
     
     ; draw the number:
@@ -659,34 +660,34 @@ code segment
             push ds
             push ax
 		    
-		    cmp  step, 0
-		    je   change_color
-		    mov  dx, 1b
-		    jmp  next
-		    
-		    change_color:
-		        mov dx, 1bH
-		    
-		    next:
-		    mov  ax, show_mem
-		    mov  ds, ax
-		    pop  ax
-		    
-		    ;mov  dx, 1b
-		    
-		    call draw_num
-		    
-		    add  di,160*2
-		    add  bx, 2
-		    cmp  bx, 20
-		    jb  _draw_sorting_num
+	    cmp  step, 0
+	    je   change_color
+	    mov  dx, 1b
+	    jmp  next
+
+	    change_color:
+		mov dx, 1bH
+
+	    next:
+	    mov  ax, show_mem
+	    mov  ds, ax
+	    pop  ax
+
+	    ;mov  dx, 1b
+
+	    call draw_num
+
+	    add  di,160*2
+	    add  bx, 2
+	    cmp  bx, 20
+	    jb  _draw_sorting_num
 		
-		pop  ds
-		pop  bx
-		pop  di
-		pop  ax
-		pop  cx
-		pop  dx        
+	    pop  ds
+	    pop  bx
+	    pop  di
+	    pop  ax
+	    pop  cx
+	    pop  dx        
     	
     	ret	
     draw_sorting_num endp
@@ -879,17 +880,17 @@ code segment
 		
 	_clean_color_loop:
 	mov  es:[di], ' '
-	    mov  es:[di+1], 7
-	    add  di,160*2
-	    inc  bx
-	    cmp  bx, 4
-	    jb   _clean_color_loop
+	mov  es:[di+1], 7
+	add  di,160*2
+        inc  bx
+        cmp  bx, 4
+	jb   _clean_color_loop
        
-       pop ds
-       pop ax
-       pop bx
-       pop di
-       ret 
+        pop ds
+        pop ax
+        pop bx
+        pop di
+        ret 
         
         
     clean_color endp
